@@ -104,10 +104,9 @@ public class DeliveryApp {
                     }
 
                     parcel = new StandardParcel(description, weight, address, sendDay);
-                    if (standardBox.addParcel((StandardParcel) parcel)) {
-                        allParcels.add(parcel);
-                        System.out.println("Стандартная посылка добавлена!");
-                    }
+                    standardBox.addParcel((StandardParcel) parcel);
+                    allParcels.add(parcel);
+                    System.out.println("Стандартная посылка добавлена!");
                     break;
                 case 2:
                     // Создаем коробку для хрупких посылок при первой посылке
@@ -122,11 +121,10 @@ public class DeliveryApp {
                     }
 
                     parcel = new FragileParcel(description, weight, address, sendDay);
-                    if (fragileBox.addParcel((FragileParcel) parcel)) {
-                        allParcels.add(parcel);
-                        trackableParcels.add((Trackable) parcel);
-                        System.out.println("Хрупкая посылка добавлена!");
-                    }
+                    fragileBox.addParcel((FragileParcel) parcel);
+                    allParcels.add(parcel);
+                    trackableParcels.add((Trackable) parcel);
+                    System.out.println("Хрупкая посылка добавлена!");
                     break;
                 case 3:
                     // Создаем коробку для скоропортящихся посылок при первой посылке
@@ -147,10 +145,9 @@ public class DeliveryApp {
                         return;
                     }
                     parcel = new PerishableParcel(description, weight, address, sendDay, timeToLive);
-                    if (perishableBox.addParcel((PerishableParcel) parcel)) {
-                        allParcels.add(parcel);
-                        System.out.println("Скоропортящаяся посылка добавлена!");
-                    }
+                    perishableBox.addParcel((PerishableParcel) parcel);
+                    allParcels.add(parcel);
+                    System.out.println("Скоропортящаяся посылка добавлена!");
                     break;
                 default:
                     System.out.println("Неверный тип посылки.");
@@ -177,7 +174,7 @@ public class DeliveryApp {
 
             // Проверяем, не испортилась ли скоропортящаяся посылка
             if (parcel instanceof PerishableParcel perishable) {
-                // Используем текущий день месяца для проверки - ПЕРЕДАЕМ ПАРАМЕТР
+                // Используем текущий день месяца для проверки
                 if (perishable.isExpired(currentDay)) {
                     System.out.println("Посылка <<" + perishable.getDescription() + ">> доставлена по адресу " + perishable.getDeliveryAddress());
                     System.out.println("❌ ВНИМАНИЕ: Посылка <<" + perishable.getDescription() + ">> ИСПОРТИЛАСЬ во время доставки!");

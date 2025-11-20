@@ -6,12 +6,14 @@ abstract class Parcel {
     protected int weight;
     protected String deliveryAddress;
     protected int sendDay;
+    protected int baseCost;
 
-    public Parcel(String description, int weight, String deliveryAddress, int sendDay) {
+    public Parcel(String description, int weight, String deliveryAddress, int sendDay, int baseCost) {
         this.description = description;
         this.weight = weight;
         this.deliveryAddress = deliveryAddress;
         this.sendDay = sendDay;
+        this.baseCost = baseCost;
     }
 
     public void packageItem() {
@@ -22,15 +24,20 @@ abstract class Parcel {
         System.out.println("Посылка <<" + description + ">> доставлена по адресу " + deliveryAddress);
     }
 
-    public abstract int calculateDeliveryCost();
+    public int calculateDeliveryCost() {
+        return weight * baseCost;
+    }
 
     // Геттеры
-    public String getDescription() { return description; }
-    public int getWeight() { return weight; }
-    public String getDeliveryAddress() { return deliveryAddress; }
+    public String getDescription() {
+        return description;
+    }
 
-    //public abstract boolean isExpired();
-    //public void isExpired() {}
-        //return false;
-    //}
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
 }

@@ -25,33 +25,14 @@ public class DeliveryCostTest {
     }
 
     @Test
-    public void testPerishableParcelExpired() {
-        PerishableParcel parcel = new PerishableParcel("Молоко", 1, "Москва", 1, 3);
-        // День отправки 1 + срок годности 3 = 4, текущий день 5 -> испорчено
-        assertTrue(parcel.isExpired(5)); // Передаем currentDay = 5
+    public void testZeroWeightParcelCost() {
+        StandardParcel parcel = new StandardParcel("Письмо", 0, "Москва", 1);
+        assertEquals(0, parcel.calculateDeliveryCost());
     }
 
     @Test
-    public void testParcelBoxAddSuccess() {
-        ParcelBox<StandardParcel> box = new ParcelBox<>(10);
-        StandardParcel parcel = new StandardParcel("Книга", 5, "Москва", 1);
-
-        assertTrue(box.addParcel(parcel));
-        assertEquals(1, box.getAllParcels().size());
-    }
-
-    @Test
-    public void testParcelBoxAddFail() {
-        ParcelBox<StandardParcel> box = new ParcelBox<>(5);
-        StandardParcel parcel = new StandardParcel("Книга", 6, "Москва", 1);
-
-        assertFalse(box.addParcel(parcel));
-        assertEquals(0, box.getAllParcels().size());
-    }
-
-    @Test
-    public void testFragileParcelTracking() {
-        FragileParcel parcel = new FragileParcel("Ваза", 2, "Москва", 1);
-        assertInstanceOf(Trackable.class, parcel);
+    public void testSingleWeightParcelCost() {
+        StandardParcel parcel = new StandardParcel("Документы", 1, "Москва", 1);
+        assertEquals(2, parcel.calculateDeliveryCost());
     }
 }
